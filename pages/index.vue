@@ -92,11 +92,15 @@ const authDecodedToken: Ref<any> = ref(null);
 const oIDCServiceEndpoints: Ref<any> = ref(null);
 
 const getAuthContext = async () => {
-  isAuth.value = await $isAuthenticated();
-  authResponse.value = await $authData();
-  authDecodedToken.value = await $decodedIDToken();
-  authToken.value = await $accessToken();
-  oIDCServiceEndpoints.value = await $OIDCServiceEndpoints();
+  try {
+    isAuth.value = await $isAuthenticated();
+    authResponse.value = await $authData();
+    authDecodedToken.value = await $decodedIDToken();
+    authToken.value = await $accessToken();
+    oIDCServiceEndpoints.value = await $OIDCServiceEndpoints();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const handleLogOut = () => {
