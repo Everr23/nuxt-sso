@@ -50,7 +50,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   // El hook `sign-in` se utiliza para activar una función callback después de que el inicio de sesión sea exitoso
   auth?.on(Hooks.SignIn, (response) => {
     const authStore = useAuthStore();
-    console.log(response);
 
     // Informacion sobre el usuario que acaba de iniciar sesion
     const userInfo: IUserInfo = {

@@ -14,7 +14,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     const authResponse = await $authData();
-    console.log(authResponse);
 
     // Informacion sobre el usuario que acaba de iniciar sesion
     const userInfo: IUserInfo = {
