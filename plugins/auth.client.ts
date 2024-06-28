@@ -33,8 +33,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Configuracion del cliente
   const config_SERVERUNA: AuthSPAClientConfig = {
-    signInRedirectURL: "https://chic-beignet-049884.netlify.app/",
-    signOutRedirectURL: "https://chic-beignet-049884.netlify.app/",
+    signInRedirectURL: "https://chic-beignet-049884.netlify.app/auth/sso/login",
+    signOutRedirectURL:
+      "https://chic-beignet-049884.netlify.app/auth/sso/login",
     clientID: "O35AClmEikHEWejYDlB65_Hss7wa",
     baseUrl: "https://ssodesa.una.ac.cr",
     scope: ["openid", "profile", "email"],
