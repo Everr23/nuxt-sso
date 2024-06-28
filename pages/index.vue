@@ -17,6 +17,16 @@
             </div>
             <br />
             <br />
+            <div>DECODED ID TOKEN</div>
+            <br />
+            <div class="json">
+              <br />
+              <div id="authentication-response" class="json-container-view">
+                <VueJsonPretty :data="decodedIDToken" />
+              </div>
+            </div>
+            <br />
+            <br />
             <div>ACCESS TOKEN</div>
             <br />
             <div class="json">
@@ -50,11 +60,13 @@
 import VueJsonPretty from "vue-json-pretty";
 import { useAuthStore } from "~/stores/auth";
 
-const { $authData, $accessToken, $IDToken, $isAuthenticated } = useNuxtApp();
+const { $authData, $accessToken, $IDToken, $isAuthenticated, $decodedIDToken } =
+  useNuxtApp();
 const authStore = useAuthStore();
 
 const authData: Ref<any> = ref(null);
 const accessToken: Ref<any> = ref(null);
+const decodedIDToken: Ref<any> = ref(null);
 const idTtoken: Ref<any> = ref(null);
 
 onMounted(async () => {
@@ -63,6 +75,8 @@ onMounted(async () => {
     authData.value = await $authData();
     accessToken.value = await $accessToken();
     idTtoken.value = await $IDToken();
+    idTtoken.value = await $IDToken();
+    decodedIDToken.value = await $decodedIDToken();
   }
 });
 
