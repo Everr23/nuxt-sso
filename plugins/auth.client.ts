@@ -9,29 +9,68 @@
 // este debe ejecutarse unicamente en el lado del cliente
 // para ello el archivo se nombra con la extensión .client.ts
 
-// 45.162.204.17   "http://45.162.204.17:8080",    "http://10.10.0.10:8080"
 import { defineNuxtPlugin } from "#app";
-import { AsgardeoSPAClient, Hooks } from "@asgardeo/auth-spa";
+import {
+  AsgardeoSPAClient,
+  type AuthSPAClientConfig,
+  Hooks,
+} from "@asgardeo/auth-spa";
+import { useAuthStore } from "~/stores/auth";
 
 export default defineNuxtPlugin((nuxtApp) => {
   // El cliente de SSO es una clase y primero debe instanciarse
   const auth = AsgardeoSPAClient.getInstance();
 
-  // Una vez instanciado, el cliente se inicializa pasando los parámetros relevantes
-  auth?.initialize({
-    signInRedirectURL: "http://localhost:8080/",
-    signOutRedirectURL: "http://localhost:8080/",
-    clientID: "YKDvoMxnsKfiVPBp4bMw_hMXQGQa",
+  // Configuracion del cliente
+  const config_LOCAL: AuthSPAClientConfig = {
+    signInRedirectURL: "http://localhost:8080/auth/sso/login",
+    signOutRedirectURL: "http://localhost:8080/auth/sso/login",
+    clientID: "BSavUvq_jFsza8IjnmVls3ntnHga",
     baseUrl: "https://localhost:9443",
     scope: ["openid", "profile", "email"],
-  });
+    // validateIDToken: false,
+  };
+
+  // Configuracion del cliente
+  const config_SERVERUNA: AuthSPAClientConfig = {
+    signInRedirectURL: "https://chic-beignet-049884.netlify.app/",
+    signOutRedirectURL: "https://chic-beignet-049884.netlify.app/",
+    clientID: "O35AClmEikHEWejYDlB65_Hss7wa",
+    baseUrl: "https://ssodesa.una.ac.cr",
+    scope: ["openid", "profile", "email"],
+    validateIDToken: false,
+  };
+
+  // Una vez instanciado, el cliente se inicializa pasando la configuracion como parametro
+  auth?.initialize(config_SERVERUNA);
 
   // Se inicia el flujo de inicio de sesión con este método
   auth?.signIn();
 
   // El hook `sign-in` se utiliza para activar una función callback después de que el inicio de sesión sea exitoso
   auth?.on(Hooks.SignIn, (response) => {
-    console.log("You have successfully signed in!", response);
+    const authStore = useAuthStore();
+    console.log(response);
+
+    // Informacion sobre el usuario que acaba de iniciar sesion
+    const userInfo: IUserInfo = {
+      email: response.email,
+      fullName: response.displayName,
+      name: response.givenName,
+      lastName: response.familyName,
+      photoUrl: response.profile,
+      role: "Admin",
+    };
+
+    // Informacion de sesion del usuario
+    const authData: IAuthData = {
+      isAuthenticated: true,
+      jti: response.jti,
+      sub: response.sub,
+    };
+
+    // Cargar informacion de la sesion en el store de Pinia
+    authStore.update(userInfo, authData);
   });
 
   // Plugin Injections: se expone la información de la sesión proporcionando helpers en la instancia NuxtApp
@@ -54,6 +93,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
       accessToken: async () => {
         return await auth?.getAccessToken();
+      },
+      IDToken: async () => {
+        return await auth?.getIDToken();
       },
       OIDCServiceEndpoints: async () => {
         return await auth?.getOIDCServiceEndpoints();
