@@ -39,7 +39,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     clientID: "O35AClmEikHEWejYDlB65_Hss7wa",
     baseUrl: "https://ssodesa.una.ac.cr",
     scope: ["openid", "profile", "email"],
-    validateIDToken: false,
+    // validateIDToken: false,
   };
 
   // Una vez instanciado, el cliente se inicializa pasando la configuracion como parametro
