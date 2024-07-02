@@ -23,9 +23,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Configuracion del cliente
   const config_LOCAL: AuthSPAClientConfig = {
-    signInRedirectURL: "http://localhost:8080/auth/sso/login",
-    signOutRedirectURL: "http://localhost:8080/auth/sso/login",
-    clientID: "BSavUvq_jFsza8IjnmVls3ntnHga",
+    signInRedirectURL: "http://localhost:8080/",
+    signOutRedirectURL: "http://localhost:8080/",
+    // clientID: "YKDvoMxnsKfiVPBp4bMw_hMXQGQa",
+    clientID: "PD3EdgtCssQLs0FQIcB3zMcF8ooa",
+    clientSecret: "jePgYuSlOzYQyWcf_Hbv8YQbhGIa",
     baseUrl: "https://localhost:9443",
     scope: ["openid", "profile", "email"],
     // validateIDToken: false,
@@ -39,7 +41,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     clientID: "O35AClmEikHEWejYDlB65_Hss7wa",
     baseUrl: "https://ssodesa.una.ac.cr",
     scope: ["openid", "profile", "email"],
-    validateIDToken: false,
+    // validateIDToken: false,
   };
 
   // Una vez instanciado, el cliente se inicializa pasando la configuracion como parametro
