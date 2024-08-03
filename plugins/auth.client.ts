@@ -41,7 +41,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     clientID: "O35AClmEikHEWejYDlB65_Hss7wa",
     baseUrl: "https://ssodesa.una.ac.cr",
     scope: ["openid", "profile", "email"],
-    validateIDToken: false,
+    // validateIDToken: false,
     endpoints: {
       authorizationEndpoint: "https://ssodesa.una.ac.cr/oauth2/authorize",
       tokenEndpoint: "https://ssodesa.una.ac.cr/oauth2/token",
