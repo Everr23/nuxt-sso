@@ -42,6 +42,17 @@ export default defineNuxtPlugin((nuxtApp) => {
     baseUrl: "https://ssodesa.una.ac.cr",
     scope: ["openid", "profile", "email"],
     validateIDToken: false,
+    endpoints: {
+      authorizationEndpoint: "https://ssodesa.una.ac.cr/oauth2/authorize",
+      tokenEndpoint: "https://ssodesa.una.ac.cr/oauth2/token",
+      userinfoEndpoint: "https://ssodesa.una.ac.cr/oauth2/userinfo",
+      jwksUri: "https://ssodesa.una.ac.cr/oauth2/jwks",
+      revocationEndpoint: "https://ssodesa.una.ac.cr/oauth2/revoke",
+      introspectionEndpoint: "https://ssodesa.una.ac.cr/oauth2/introspect",
+      checkSessionIframe: "https://ssodesa.una.ac.cr/oidc/checksession",
+      endSessionEndpoint: "https://ssodesa.una.ac.cr/oidc/logout",
+      issuer: "https://ssodesa.una.ac.cr/oauth2/token",
+    },
   };
 
   // Una vez instanciado, el cliente se inicializa pasando la configuracion como parametro
